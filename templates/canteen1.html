@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Canteen Logo">
+        </div>
+    </header>
+
+    <main>
+        <div class="canteen-title">
+            <h2>CANTEEN 1</h2>
+        </div>
+        
+        <div class="menu">
+            <!-- Menu Item 1 -->
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/dosa.jpg') }}" alt="Dosa">
+                <h3>Dosa</h3>
+                <p>Price: ₹50</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity1" name="quantity1" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Dosa', 50, document.getElementById('quantity1').value)">Add to Cart</button>
+            </div>
+            
+            <!-- Menu Item 2 -->
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/idli.jpg') }}" alt="Idli">
+                <h3>Idli</h3>
+                <p>Price: ₹30</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity2" name="quantity2" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Idli', 30, document.getElementById('quantity2').value)">Add to Cart</button>
+            </div>
+            
+            <!-- Menu Item 3 -->
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/vada.jpg') }}" alt="Vada">
+                <h3>Vada</h3>
+                <p>Price: ₹40</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity3" name="quantity3" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Vada', 40, document.getElementById('quantity3').value)">Add to Cart</button>
+            </div>
+            
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/uttapam.jpg') }}" alt="Uttapam">
+                <h3>Uttapam</h3>
+                <p>Price: ₹60</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity4" name="quantity4" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Uttapam', 60, document.getElementById('quantity4').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/sambar_rice.jpg') }}" alt="Pongal">
+                <h3>Sambar Rice</h3>
+                <p>Price: ₹50</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity5" name="quantity5" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Sambar Rice', 50, document.getElementById('quantity5').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/curd_rice.jpg') }}" alt="Sambar">
+                <h3>Curd Rice</h3>
+                <p>Price: ₹30</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity6" name="quantity6" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Curd Rice', 30, document.getElementById('quantity6').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/noodles.jpg') }}" alt="Rasam">
+                <h3>Noodles</h3>
+                <p>Price: ₹20</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity7" name="quantity7" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Noodles', 20, document.getElementById('quantity7').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/upma.jpg') }}" alt="Curd Rice">
+                <h3>Upma</h3>
+                <p>Price: ₹40</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity8" name="quantity8" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Upma', 40, document.getElementById('quantity8').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen1/appam.jpg') }}" alt="Curd Rice">
+                <h3>Appam</h3>
+                <p>Price: ₹40</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity9" name="quantity9" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Appam', 40, document.getElementById('quantity9').value)">Add to Cart</button>
+            </div>
+
+            <!-- Add more menu items similarly as needed -->
+        </div>
+
+        <!-- Cart Section -->
+        <div id="cart-section">
+            <h3>Your Cart</h3>
+            <div id="cart-container">
+                <ul id="cart-items"></ul>
+                <div id="cart-summary">
+                    <p>Total: ₹<span id="total-price">0</span></p>
+                    <button type="button" onclick="showTotal()">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Canteen Management System. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price, quantity) {
+            const item = {
+                name: name,
+                price: price,
+                quantity: parseInt(quantity)
+            };
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(cartItem => cartItem.name === name);
+            if (existingItem) {
+                existingItem.quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+            alert(` added to cart!`);
+            displayCart();
+        }
+
+        function removeFromCart(name) {
+            // Remove item from cart
+            cart = cart.filter(cartItem => cartItem.name !== name);
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = ''; // Clear cart display
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.classList.add('cart-item');
+
+                // Corrected the li.innerHTML with template literals
+                li.innerHTML = `
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">₹${item.price} x ${item.quantity}</span>
+                    <button class="remove-item-btn" onclick="removeFromCart('${item.name}')">Remove</button>
+                `;
+                
+                cartItems.appendChild(li);
+                totalPrice += item.price * item.quantity;
+            });
+
+            document.getElementById('total-price').textContent = totalPrice;
+        }
+
+        // Show total price in a pop-up when "Proceed" is clicked
+        function showTotal() {
+            let totalAmount = 0;
+
+    // Calculate the total amount from cart
+            cart.forEach(item => {
+                totalAmount += item.price * item.quantity;
+            });
+
+    // Create a form dynamically to send POST request
+            var form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/checkout";
+
+            var hiddenField = document.createElement("input");
+        hiddenField.type = "hidden";
+        hiddenField.name = "total_amount";
+        hiddenField.value = totalAmount;
+        form.appendChild(hiddenField);
+
+            // Add each cart item as hidden fields
+        cart.forEach(function(item, index) {
+        var itemNameField = document.createElement("input");
+        itemNameField.type = "hidden";
+        itemNameField.name = "item_name_" + index;  // Unique name for each item
+        itemNameField.value = item.name;
+        form.appendChild(itemNameField);
+
+        var itemPriceField = document.createElement("input");
+        itemPriceField.type = "hidden";
+        itemPriceField.name = "item_price_" + index;  // Unique name for each item
+        itemPriceField.value = item.price;
+        form.appendChild(itemPriceField);
+
+        var itemQuantityField = document.createElement("input");
+        itemQuantityField.type = "hidden";
+        itemQuantityField.name = "item_quantity_" + index;  // Unique name for each item
+        itemQuantityField.value = item.quantity;
+        form.appendChild(itemQuantityField);
+        });
+
+    // Append the form to the document body and submit it
+        document.body.appendChild(form);
+        form.submit();// Submit the form
+            }
+
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,95 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        function togglePayment() {
+            document.getElementById("cart-section").style.display = "none";
+            document.getElementById("payment-section").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Your Cart</h1>
+    </header>
+
+    <main>
+        <!-- Cart Details -->
+        <div id="cart-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sl. No.</th>
+                        <th>Food Item</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total Price</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, item in enumerate(cart, start=1) %}
+                    <tr>
+                        <td>{{ index }}</td>
+                        <td>{{ item['item'] }}</td>
+                        <td>{{ item['quantity'] }}</td>
+                        <td>₹{{ item['price'] }}</td>
+                        <td>₹{{ item['price'] * item['quantity'] }}</td>
+                        <td><a href="/remove_item/{{ index }}">Remove</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h3>Total: ₹{{ total_price }}</h3>
+
+            <div>
+                <button class="btn" onclick="togglePayment()">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- Payment Section -->
+        <div id="payment-section" style="display: none;">
+            <h2>Payment</h2>
+            <form action="/process_payment" method="POST">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sl. No.</th>
+                            <th>Food Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, item in enumerate(cart, start=1) %}
+                        <tr>
+                            <td>{{ index }}</td>
+                            <td>{{ item['item'] }}</td>
+                            <td>{{ item['quantity'] }}</td>
+                            <td>₹{{ item['price'] }}</td>
+                            <td>₹{{ item['price'] * item['quantity'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h3>Total: ₹{{ total_price }}</h3>
+
+                <!-- Payment Options -->
+                <div>
+                    <button type="submit" class="btn">Pay Now</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

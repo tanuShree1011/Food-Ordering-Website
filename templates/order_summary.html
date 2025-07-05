@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
+        }
+
+        header {
+            background: #4CAF50;
+            padding: 10px 20px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .checkout-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .checkout-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .cart-summary {
+            margin-bottom: 20px;
+        }
+
+        .cart-summary h4 {
+            margin: 0 0 10px;
+            color: #4CAF50;
+        }
+
+        .cart-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart-items li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-items li:last-child {
+            border-bottom: none;
+        }
+
+        .cart-items .item-name {
+            font-weight: bold;
+        }
+
+        .total-amount {
+            text-align: right;
+            font-size: 18px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .payment-options {
+            margin-top: 20px;
+        }
+
+        .payment-options h4 {
+            margin-bottom: 10px;
+        }
+
+        .payment-options button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .payment-options button:hover {
+            background: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Checkout
+    </header>
+
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h2>Review Your Order</h2>
+        </div>
+
+        <div class="cart-summary">
+            <h4>Your Cart Items:</h4>
+            <ul class="cart-items">
+                {% for item in cart %}
+                <li>
+                    <span class="item-name">{{ item.name }}</span>
+                    <span>₹{{ item.price }} x {{ item.quantity }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="total-amount">
+            Total Amount: ₹{{ total_amount }}
+        </div>
+
+        <div class="payment-options">
+            <h4>Choose a Payment Method:</h4>
+            <button onclick="alert('Payment via UPI coming soon!')">Pay with UPI</button>
+            <button onclick="alert('Payment via Card coming soon!')">Pay with Card</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Canteen Management System. All Rights Reserved.
+    </footer>
+</body>
+</html>
+

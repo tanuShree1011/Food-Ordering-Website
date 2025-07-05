@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Canteen Logo">
+        </div>
+    </header>
+
+    <main>
+        <div class="canteen-title">
+            <h2>CANTEEN 2</h2>
+        </div>
+        
+        <div class="menu">
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/veg_sandwich.jpg') }}" alt="Dosa">
+                <h3>Veg Sandwich</h3>
+                <p>Price: ₹80</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity1" name="quantity1" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Veg Sandwich', 80, document.getElementById('quantity1').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/pizza.jpg') }}" alt="Idli">
+                <h3>Pizza</h3>
+                <p>Price: ₹100</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity2" name="quantity2" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Pizza', 100, document.getElementById('quantity2').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/egg_roll.jpg') }}" alt="Vada">
+                <h3>Egg Roll</h3>
+                <p>Price: ₹100</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity3" name="quantity3" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Egg Roll', 100, document.getElementById('quantity3').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/veg_burger.jpg') }}" alt="Uttapam">
+                <h3>Veg Burger</h3>
+                <p>Price: ₹90</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity4" name="quantity4" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Veg Burger', 90, document.getElementById('quantity4').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/cheese_sandwich.jpg') }}" alt="Pongal">
+                <h3>Cheese Sandwich</h3>
+                <p>Price: ₹100</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity5" name="quantity5" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Cheese Sandwich', 100, document.getElementById('quantity5').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/cheese_burger.jpg') }}" alt="Sambar">
+                <h3>Cheese Burger</h3>
+                <p>Price: ₹120</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity6" name="quantity6" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Cheese Burger', 120, document.getElementById('quantity6').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/veg_wrap.jpg') }}" alt="Rasam">
+                <h3>Veg Wrap</h3>
+                <p>Price: ₹110</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity7" name="quantity7" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Veg Wrap', 110, document.getElementById('quantity7').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/paneer_wrap.jpg') }}" alt="Curd Rice">
+                <h3>Paneer Wrap</h3>
+                <p>Price: ₹130</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity8" name="quantity8" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('Paneer Wrap', 130, document.getElementById('quantity8').value)">Add to Cart</button>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='images/canteen2/french_fries.jpg') }}" alt="Curd Rice">
+                <h3>French Fries</h3>
+                <p>Price: ₹60</p>
+                <label for="quantity">Quantity: </label>
+                <input type="number" id="quantity9" name="quantity9" value="1" min="1" max="10">
+                <button class="add-to-cart-btn" onclick="addToCart('French Fries', 60, document.getElementById('quantity9').value)">Add to Cart</button>
+            </div>
+        </div>
+        
+        <!-- Cart Section -->
+        <div id="cart-section">
+            <h3>Your Cart</h3>
+            <div id="cart-container">
+                <ul id="cart-items"></ul>
+                <div id="cart-summary">
+                    <p>Total: ₹<span id="total-price">0</span></p>
+                    <button type="button" onclick="showTotal()">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Canteen Management System. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price, quantity) {
+            const item = {
+                name: name,
+                price: price,
+                quantity: parseInt(quantity)
+            };
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(cartItem => cartItem.name === name);
+            if (existingItem) {
+                existingItem.quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+            alert(` added to cart!`);
+            displayCart();
+        }
+
+        function removeFromCart(name) {
+            // Remove item from cart
+            cart = cart.filter(cartItem => cartItem.name !== name);
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = ''; // Clear cart display
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.classList.add('cart-item');
+
+                // Corrected the li.innerHTML with template literals
+                li.innerHTML = `
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">₹${item.price} x ${item.quantity}</span>
+                    <button class="remove-item-btn" onclick="removeFromCart('${item.name}')">Remove</button>
+                `;
+                
+                cartItems.appendChild(li);
+                totalPrice += item.price * item.quantity;
+            });
+
+            document.getElementById('total-price').textContent = totalPrice;
+        }
+
+        // Show total price in a pop-up when "Proceed" is clicked
+        function showTotal() {
+            let totalAmount = 0;
+
+    // Calculate the total amount from cart
+            cart.forEach(item => {
+                totalAmount += item.price * item.quantity;
+            });
+
+    // Create a form dynamically to send POST request
+            var form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/checkout";
+
+            var hiddenField = document.createElement("input");
+        hiddenField.type = "hidden";
+        hiddenField.name = "total_amount";
+        hiddenField.value = totalAmount;
+        form.appendChild(hiddenField);
+
+            // Add each cart item as hidden fields
+        cart.forEach(function(item, index) {
+        var itemNameField = document.createElement("input");
+        itemNameField.type = "hidden";
+        itemNameField.name = "item_name_" + index;  // Unique name for each item
+        itemNameField.value = item.name;
+        form.appendChild(itemNameField);
+
+        var itemPriceField = document.createElement("input");
+        itemPriceField.type = "hidden";
+        itemPriceField.name = "item_price_" + index;  // Unique name for each item
+        itemPriceField.value = item.price;
+        form.appendChild(itemPriceField);
+
+        var itemQuantityField = document.createElement("input");
+        itemQuantityField.type = "hidden";
+        itemQuantityField.name = "item_quantity_" + index;  // Unique name for each item
+        itemQuantityField.value = item.quantity;
+        form.appendChild(itemQuantityField);
+        });
+
+    // Append the form to the document body and submit it
+        document.body.appendChild(form);
+        form.submit();// Submit the form
+            }
+
+    </script>
+
+</body>
+</html>

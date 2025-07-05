@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canteen Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Canteen Logo">
+        </div>
+    </header>
+    
+    <main>
+        
+        
+        <div class="canteen-selection">
+            <h2>Choose Your Canteen</h2>
+            <div class="canteen-container">
+                <div class="canteen-item">
+                    <img src="{{ url_for('static', filename='images/canteen3.png') }}" alt="Canteen 1">
+                    <a href="/canteen/1" class="button">Canteen 1 </a>
+                </div>
+                <div class="canteen-item">
+                    <img src="{{ url_for('static', filename='images/canteen2.png') }}" alt="Canteen 2">
+                    <a href="/canteen/2" class="button">Canteen 2 </a>
+                </div>
+                <div class="canteen-item">
+                    <img src="{{ url_for('static', filename='images/canteen1.png') }}" alt="Canteen 3">
+                    <a href="/canteen/3" class="button">Canteen 3 </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br><br>
+    <footer>
+        <p>&copy; 2024 Canteen Management System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
